@@ -14,6 +14,21 @@ export default function App() {
   const [selectedSeason, setSelectedSeason] = useState("");
   const episodes = seasons[selectedSeason] || [];
 
+// ADDING THE USEEFFEC HOOK for the call 
+  useEffect(() => {
+    fetchShow().then(data=>{
+      setShow(data);
+      if(data) setSeasons(formatSeasons(data._embedded.episodes));
+    });
+  }, []);
+
+  const handleSelect = e => {
+    setSelectedSeason(e.value);
+  };
+
+
+
+
   useEffect(() => {
     const fetchShow = () => {
       axios
